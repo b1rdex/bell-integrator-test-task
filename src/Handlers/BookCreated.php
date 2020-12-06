@@ -31,7 +31,7 @@ class BookCreated
     public static function createFromEntity(Book $book): self
     {
         $authors = array_map(
-            static fn(Author $author): array => ['id' => $author->getId(), 'name' => $author->getName()],
+            static fn (Author $author): array => ['id' => $author->getId(), 'name' => $author->getName()],
             $book->getAuthors()->toArray()
         );
 

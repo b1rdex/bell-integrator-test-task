@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Handlers;
 
 use App\Entity\Author;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 
 class AuthorCreator

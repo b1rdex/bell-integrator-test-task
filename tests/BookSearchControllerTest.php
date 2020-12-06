@@ -29,7 +29,7 @@ class BookSearchControllerTest extends WebTestCase
         $client = static::createClient();
 
         $query = 'цветок';
-        $uri = '/book/search?' . http_build_query([
+        $uri = '/book/search?'.http_build_query([
             'query' => $query,
             'page' => 2,
         ]);

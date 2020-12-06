@@ -15,7 +15,7 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Used to run fixtures in migrations
+ * Used to run fixtures in migrations.
  *
  * @see https://gist.github.com/lavoiesl/77375da08b3274aa6440
  */
@@ -38,18 +38,18 @@ abstract class AbstractFixtureMigration extends AbstractMigration implements Con
         \assert($em instanceof EntityManagerInterface);
 
         $loader = new Loader($this->container);
-        array_map(array($loader, 'addFixture'), $fixtures);
+        array_map([$loader, 'addFixture'], $fixtures);
 
         $purger = null;
-        if ($append === false) {
+        if (false === $append) {
             $purger = new ORMPurger($em);
             $purger->setPurgeMode(ORMPurger::PURGE_MODE_DELETE);
         }
 
         $executor = new ORMExecutor($em, $purger);
 
-        $output = new ConsoleOutput;
-        $executor->setLogger(function($message) use ($output) {
+        $output = new ConsoleOutput();
+        $executor->setLogger(function ($message) use ($output) {
             $output->writeln(sprintf('  <comment>></comment> <info>%s</info>', $message));
         });
 

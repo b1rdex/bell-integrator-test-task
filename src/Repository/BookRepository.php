@@ -29,7 +29,7 @@ class BookRepository extends ServiceEntityRepository
             ->addSelect('a');
 
         $qb->andWhere('b.name_ru like :query or b.name_en like :query');
-        $qb->setParameter(':query', '%' . $query . '%');
+        $qb->setParameter(':query', '%'.$query.'%');
 
         return $qb;
     }

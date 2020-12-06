@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Handlers;
 
-use App\Entity\Book;
 use App\Repository\BookRepository;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;

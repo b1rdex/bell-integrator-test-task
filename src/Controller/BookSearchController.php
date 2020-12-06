@@ -44,7 +44,7 @@ class BookSearchController extends AbstractController
         };
 
         $currentPage = $paginator->getCurrentPageNumber();
-        $totalPages = (int)ceil($paginator->getTotalItemCount() / $paginator->getItemNumberPerPage());
+        $totalPages = (int) ceil($paginator->getTotalItemCount() / $paginator->getItemNumberPerPage());
 
         $collection->addLink('self', $createLinkUrl($currentPage));
         $collection->addLink('first', $createLinkUrl(1));

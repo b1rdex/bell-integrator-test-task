@@ -38,7 +38,7 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 10; ++$i) {
             foreach ($this->generate(1000) as $object) {
                 $manager->persist($object);
             }
@@ -52,39 +52,39 @@ class AppFixtures extends Fixture
     private function generate(int $count): iterable
     {
         $authors = [];
-        for ($i = 0; $i < $count; $i++) {
+        for ($i = 0; $i < $count; ++$i) {
             yield $authors[] = $this->author();
         }
 
-        for ($i = 0; $i < $count; $i++) {
+        for ($i = 0; $i < $count; ++$i) {
             yield $this->book($authors);
         }
     }
 
     private function author(): Author
     {
-        $female = (bool)mt_rand(0, 1);
-        $complexName = (bool)mt_rand(0, 1);
+        $female = (bool) mt_rand(0, 1);
+        $complexName = (bool) mt_rand(0, 1);
 
         $lastName = array_map(
             static fn (int $key): string => self::LAST_NAMES[$key],
-            (array)array_rand(self::LAST_NAMES, $complexName ? 2 : 1)
+            (array) array_rand(self::LAST_NAMES, $complexName ? 2 : 1)
         );
         if ($female) {
-            $lastName = array_map(static fn(string $name): string => $name . 'а', $lastName);
+            $lastName = array_map(static fn (string $name): string => $name.'а', $lastName);
         }
         $lastName = implode('-', $lastName);
 
         $initials = implode(
             ' ',
             array_map(
-                static fn(int $key): string => mb_substr(self::LAST_NAMES[$key], 0, 1) . '.',
+                static fn (int $key): string => mb_substr(self::LAST_NAMES[$key], 0, 1).'.',
                 // @phpstan-ignore-next-line
                 array_rand(self::LAST_NAMES, 2)
             )
         );
 
-        return new Author($lastName . ' ' . $initials);
+        return new Author($lastName.' '.$initials);
     }
 
     /**
@@ -96,7 +96,7 @@ class AppFixtures extends Fixture
 
         foreach (array_map(
             static fn (int $key) => $authors[$key],
-            (array)array_rand($authors, mt_rand(1, 3))
+            (array) array_rand($authors, mt_rand(1, 3))
         ) as $author) {
             $book->addAuthor($author);
         }

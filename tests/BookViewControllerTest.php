@@ -37,7 +37,7 @@ class BookViewControllerTest extends WebTestCase
         $nameEn = 'Book in English';
         $bookId = $this->createBook($client, $nameRu, $nameEn, $authors);
 
-        $client->request('GET', '/ru/book/view/' . $bookId, [], [], ['CONTENT_TYPE' => 'application/json']);
+        $client->request('GET', '/ru/book/view/'.$bookId, [], [], ['CONTENT_TYPE' => 'application/json']);
         static::assertResponseStatusCodeSame(200);
         $content = $client->getResponse()->getContent();
         static::assertIsString($content);
@@ -52,7 +52,7 @@ class BookViewControllerTest extends WebTestCase
             ]],
         ], $found);
 
-        $client->request('GET', '/en/book/view/' . $bookId, [], [], ['CONTENT_TYPE' => 'application/json']);
+        $client->request('GET', '/en/book/view/'.$bookId, [], [], ['CONTENT_TYPE' => 'application/json']);
         static::assertResponseStatusCodeSame(200);
         $content = $client->getResponse()->getContent();
         static::assertIsString($content);

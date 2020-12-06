@@ -10,7 +10,7 @@ trait CreateAuthor
 {
     private function createAuthor(KernelBrowser $client, string $name): int
     {
-        $body = json_encode(["name" => $name], JSON_THROW_ON_ERROR);
+        $body = json_encode(['name' => $name], JSON_THROW_ON_ERROR);
         $crawler = $client->request('POST', '/author/create', [], [], ['CONTENT_TYPE' => 'application/json'], $body);
         static::assertResponseStatusCodeSame(201);
         $content = $client->getResponse()->getContent();

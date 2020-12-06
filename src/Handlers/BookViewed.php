@@ -30,7 +30,7 @@ class BookViewed
      */
     public static function createFromEntity(Book $book, string $locale): self
     {
-        $name = $locale === 'ru' ? $book->getNameRu() : $book->getNameEn();
+        $name = 'ru' === $locale ? $book->getNameRu() : $book->getNameEn();
 
         if (null === $name) {
             throw new NotFoundHttpException(sprintf('The book isn\'t available in the requested locale (%s)', $locale));
@@ -40,7 +40,7 @@ class BookViewed
             $book->getId(),
             $name,
             array_map(
-                static fn(Author $author): AuthorCreated => AuthorCreated::createFromEntity($author),
+                static fn (Author $author): AuthorCreated => AuthorCreated::createFromEntity($author),
                 $book->getAuthors()->toArray()
             )
         );

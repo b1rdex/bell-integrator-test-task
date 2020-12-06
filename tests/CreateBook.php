@@ -18,8 +18,8 @@ trait CreateBook
         array $authors
     ): int {
         $body = json_encode([
-            "name_ru" => $nameRu,
-            "name_en" => $nameEn,
+            'name_ru' => $nameRu,
+            'name_en' => $nameEn,
             'authors' => $authors,
         ], JSON_THROW_ON_ERROR);
 

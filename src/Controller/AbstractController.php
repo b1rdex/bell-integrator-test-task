@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Exception\ValidationException;
-use Symfony\Component\HttpFoundation\Exception\BadRequestException;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Serializer\Exception\NotEncodableValueException;
@@ -34,16 +32,15 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
     protected function validateContentType(?string $type): void
     {
         if (self::CONTENT_TYPE !== $type) {
-            throw new ValidationException(
-                'Invalid content type header.',
-                Response::HTTP_UNSUPPORTED_MEDIA_TYPE
-            );
+            throw new ValidationException('Invalid content type header.', Response::HTTP_UNSUPPORTED_MEDIA_TYPE);
         }
     }
 
     /**
      * @template T of object
+     *
      * @param class-string<T> $model
+     *
      * @return T
      *
      * @throws ValidationException
@@ -54,7 +51,7 @@ class AbstractController extends \Symfony\Bundle\FrameworkBundle\Controller\Abst
             $object = $this->serializer->deserialize($data, $model, self::RESPONSE_FORMAT, [
                 AbstractObjectNormalizer::DISABLE_TYPE_ENFORCEMENT => true,
             ]);
-        } catch (NotEncodableValueException|NotNormalizableValueException $exception) {
+        } catch (NotEncodableValueException | NotNormalizableValueException $exception) {
             throw new BadRequestHttpException('Malformed JSON');
         }
 
