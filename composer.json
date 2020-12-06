@@ -81,7 +81,8 @@
             "@auto-scripts"
         ],
         "test": "APP_ENV=test bin/phpunit",
-        "lint": "phpstan analyse --memory-limit=-1"
+        "lint": "phpstan analyse --memory-limit=-1",
+        "fix-cs": "php-cs-fixer fix"
     },
     "conflict": {
         "symfony/symfony": "*"
