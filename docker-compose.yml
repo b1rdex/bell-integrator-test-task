@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      - MYSQL_DATABASE=${DATABASE_NAME}
+      - MYSQL_USER=${DATABASE_USER}
+      - MYSQL_PASSWORD=${DATABASE_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${DATABASE_ROOT_PASSWORD}
+    volumes:
+      - db:/var/lib/mysql
+
+  php:
+    build:
+      context: ./docker/php
+    depends_on:
+      - db
+    environment:
+      - APP_ENV=${APP_ENV}
+      - APP_SECRET=${APP_SECRET}
+      - DATABASE_URL=mysql://${DATABASE_USER}:${DATABASE_PASSWORD}@db:3306/${DATABASE_NAME}?serverVersion=8.0
+    volumes:
+      - .:/var/www
+
+  nginx:
+    image: nginx:alpine
+    volumes:
+      - ./:/var/www:ro
+      - ./docker/nginx/conf.d/:/etc/nginx/conf.d:ro
+    depends_on:
+      - php
+    ports:
+      - "80:80"
+
+volumes:
+  db: ~
