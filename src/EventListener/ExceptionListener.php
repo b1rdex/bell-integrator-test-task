@@ -35,6 +35,9 @@ class ExceptionListener implements EventSubscriberInterface
     {
         $throwable = $event->getThrowable();
         if ($throwable instanceof ApplicationException || $throwable instanceof HttpException) {
+            if (str_starts_with($throwable->getMessage(), 'No route found for')) {
+                return;
+            }
             $response = $this->handleKnownExceptions($throwable);
         } else {
             $response = $this->handleUnknownExceptions($throwable);
