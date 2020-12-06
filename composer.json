@@ -78,7 +78,9 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
-        ]
+        ],
+        "test": "APP_ENV=test bin/phpunit",
+        "lint": "phpstan analyse --memory-limit=-1"
     },
     "conflict": {
         "symfony/symfony": "*"
