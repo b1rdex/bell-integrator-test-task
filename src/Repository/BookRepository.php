@@ -21,4 +21,16 @@ class BookRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Book::class);
     }
+
+    public function findSearchQueryBuilder(string $query): QueryBuilder
+    {
+        $qb = $this->createQueryBuilder('b')
+            ->leftJoin('b.authors', 'a')
+            ->addSelect('a');
+
+        $qb->andWhere('b.name_ru like :query or b.name_en like :query');
+        $qb->setParameter(':query', '%' . $query . '%');
+
+        return $qb;
+    }
 }
